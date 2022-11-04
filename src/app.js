@@ -18,7 +18,7 @@ app.post("/sign-up", (req, res) => {
   };
 
   users.push(newUser);
-  res.send("OK");
+  res.status(201).send("OK");
 });
 
 app.post("/tweets", (req, res) => {
@@ -30,7 +30,7 @@ app.post("/tweets", (req, res) => {
   };
 
   tweets.push(newTweet);
-  res.send("OK");
+  res.status(201).send("OK");
 });
 
 app.get("/tweets", (req, res) => {
