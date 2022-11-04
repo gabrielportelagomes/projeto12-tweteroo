@@ -32,4 +32,16 @@ app.post("/sign-up", (req, res) => {
   res.send("OK");
 });
 
+app.post("/tweets", (req, res) => {
+  const { username, tweet } = req.body;
+
+  const newTweet = {
+    username,
+    tweet,
+  };
+
+  tweets.push(newTweet)
+  res.send("OK");
+});
+
 app.listen(5000);
