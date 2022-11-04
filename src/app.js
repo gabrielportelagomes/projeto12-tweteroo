@@ -1,4 +1,4 @@
-import express, {json} from "express";
+import express, { json } from "express";
 import cors from "cors";
 
 const app = express();
@@ -19,3 +19,17 @@ const tweets = [
     tweet: "eu amo o hub",
   },
 ];
+
+app.post("/sign-up", (req, res) => {
+  const { username, avatar } = req.body;
+
+  const newUser = {
+    username,
+    avatar,
+  };
+
+  users.push(newUser);
+  res.send("OK");
+});
+
+app.listen(5000);
