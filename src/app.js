@@ -40,8 +40,20 @@ app.post("/tweets", (req, res) => {
     tweet,
   };
 
-  tweets.push(newTweet)
+  tweets.push(newTweet);
   res.send("OK");
+});
+
+app.get("/tweets", (req, res) => {
+  const lastTweets = tweets.slice(-10);
+  lastTweets.map((tweet) => {
+    users.find((user) => {
+      if (user.username === tweet.username) {
+        tweet.avatar = user.avatar;
+      }
+    });
+  });
+  res.send(lastTweets);
 });
 
 app.listen(5000);
