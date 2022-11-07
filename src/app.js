@@ -126,13 +126,15 @@ app.post("/tweets", (req, res) => {
 
 app.get("/tweets", (req, res) => {
   const lastTweets = tweets.slice(-10);
-  lastTweets.map((tweet) => {
+  
+  tweets.map((tweet) => {
     users.find((user) => {
       if (user.username === tweet.username) {
         tweet.avatar = user.avatar;
       }
     });
   });
+
   res.send(lastTweets);
 });
 
