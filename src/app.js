@@ -136,4 +136,15 @@ app.get("/tweets", (req, res) => {
   res.send(lastTweets);
 });
 
+app.get("/tweets/:USERNAME", (req, res) => {
+  const username = req.params.USERNAME;
+  const userTweets = tweets.filter((tweet) => tweet.username === username);
+
+  if (userTweets. length === 0) {
+    res.status(404).send("Não há tweets publicados")
+  }
+
+  res.send(userTweets);
+});
+
 app.listen(5000);
