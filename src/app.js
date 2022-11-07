@@ -57,7 +57,7 @@ const tweets = [
     username: "siriguejo",
     tweet: "mensagem 9",
   },
-  {
+  /* {
     username: "patrick",
     tweet: "mensagem 8",
   },
@@ -88,7 +88,7 @@ const tweets = [
   {
     username: "bobesponja",
     tweet: "mensagem 1",
-  },
+  }, */
 ];
 
 app.post("/sign-up", (req, res) => {
@@ -125,8 +125,9 @@ app.post("/tweets", (req, res) => {
 });
 
 app.get("/tweets", (req, res) => {
-  const lastTweets = tweets.slice(0, 10);
-  
+  const page = req.query.page;
+  const lastTweets = [];
+
   tweets.map((tweet) => {
     users.find((user) => {
       if (user.username === tweet.username) {
@@ -135,6 +136,22 @@ app.get("/tweets", (req, res) => {
     });
   });
 
+  if (page === 1) {
+    for (let i = 0; i < 10; i++) {
+      if(i < tweets.length) {
+        lastTweets.push(tweets[i]);
+      }
+    }
+  } else {
+    for (let j = 0; j < 10; j++) {
+      if (10 * (page - 1) + j > tweets.length - 1) {
+        break;
+      } else {
+        lastTweets.push(tweets[10 * (page - 1) + j]);
+      }
+    }
+  }
+
   res.send(lastTweets);
 });
 
@@ -142,8 +159,8 @@ app.get("/tweets/:USERNAME", (req, res) => {
   const username = req.params.USERNAME;
   const userTweets = tweets.filter((tweet) => tweet.username === username);
 
-  if (userTweets. length === 0) {
-    res.status(404).send("Não há tweets publicados")
+  if (userTweets.length === 0) {
+    res.status(404).send("Não há tweets publicados");
   }
 
   res.send(userTweets);
