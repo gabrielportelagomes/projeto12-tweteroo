@@ -35,59 +35,59 @@ const users = [
 const tweets = [
   {
     username: "bobesponja",
-    tweet: "mensagem 1",
+    tweet: "mensagem 14",
   },
   {
     username: "bobesponja",
-    tweet: "mensagem 2",
+    tweet: "mensagem 13",
   },
   {
     username: "sandy",
-    tweet: "mensagem 3",
+    tweet: "mensagem 12",
   },
   {
     username: "lulamolusco",
-    tweet: "mensagem 4",
+    tweet: "mensagem 11",
   },
   {
     username: "patrick",
-    tweet: "mensagem 5",
-  },
-  {
-    username: "siriguejo",
-    tweet: "mensagem 6",
-  },
-  {
-    username: "patrick",
-    tweet: "mensagem 7",
-  },
-  {
-    username: "sandy",
-    tweet: "mensagem 8",
-  },
-  {
-    username: "patrick",
-    tweet: "mensagem 9",
-  },
-  {
-    username: "lulamolusco",
     tweet: "mensagem 10",
   },
   {
     username: "siriguejo",
-    tweet: "mensagem 11",
+    tweet: "mensagem 9",
   },
   {
-    username: "bobesponja",
-    tweet: "mensagem 12",
+    username: "patrick",
+    tweet: "mensagem 8",
   },
   {
     username: "sandy",
-    tweet: "mensagem 13",
+    tweet: "mensagem 7",
+  },
+  {
+    username: "patrick",
+    tweet: "mensagem 6",
+  },
+  {
+    username: "lulamolusco",
+    tweet: "mensagem 5",
+  },
+  {
+    username: "siriguejo",
+    tweet: "mensagem 4",
   },
   {
     username: "bobesponja",
-    tweet: "mensagem 14",
+    tweet: "mensagem 3",
+  },
+  {
+    username: "sandy",
+    tweet: "mensagem 2",
+  },
+  {
+    username: "bobesponja",
+    tweet: "mensagem 1",
   },
 ];
 
@@ -120,12 +120,12 @@ app.post("/tweets", (req, res) => {
     tweet,
   };
 
-  tweets.push(newTweet);
+  tweets.unshift(newTweet);
   res.status(201).send("OK");
 });
 
 app.get("/tweets", (req, res) => {
-  const lastTweets = tweets.slice(-10);
+  const lastTweets = tweets.slice(0, 10);
   
   tweets.map((tweet) => {
     users.find((user) => {
