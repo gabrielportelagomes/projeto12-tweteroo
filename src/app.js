@@ -57,7 +57,7 @@ const tweets = [
     username: "siriguejo",
     tweet: "mensagem 9",
   },
-  /* {
+  {
     username: "patrick",
     tweet: "mensagem 8",
   },
@@ -88,7 +88,7 @@ const tweets = [
   {
     username: "bobesponja",
     tweet: "mensagem 1",
-  }, */
+  },
 ];
 
 app.post("/sign-up", (req, res) => {
@@ -96,6 +96,7 @@ app.post("/sign-up", (req, res) => {
 
   if (!username || !avatar) {
     res.status(400).send("Todos os campos são obrigatórios!");
+    return;
   }
 
   const newUser = {
@@ -113,6 +114,7 @@ app.post("/tweets", (req, res) => {
 
   if (!username || !tweet) {
     res.status(400).send("Todos os campos são obrigatórios!");
+    return;
   }
 
   const newTweet = {
@@ -136,20 +138,25 @@ app.get("/tweets", (req, res) => {
     });
   });
 
-  if (page === 1) {
-    for (let i = 0; i < 10; i++) {
-      if(i < tweets.length) {
-        lastTweets.push(tweets[i]);
+  if (page >= 1) {
+    if (page === 1) {
+      for (let i = 0; i < 10; i++) {
+        if (i < tweets.length) {
+          lastTweets.push(tweets[i]);
+        }
+      }
+    } else {
+      for (let j = 0; j < 10; j++) {
+        if (10 * (page - 1) + j > tweets.length - 1) {
+          break;
+        } else {
+          lastTweets.push(tweets[10 * (page - 1) + j]);
+        }
       }
     }
   } else {
-    for (let j = 0; j < 10; j++) {
-      if (10 * (page - 1) + j > tweets.length - 1) {
-        break;
-      } else {
-        lastTweets.push(tweets[10 * (page - 1) + j]);
-      }
-    }
+    res.status(400).send("Informe uma página válida!");
+    return;
   }
 
   res.send(lastTweets);
@@ -161,6 +168,7 @@ app.get("/tweets/:USERNAME", (req, res) => {
 
   if (userTweets.length === 0) {
     res.status(404).send("Não há tweets publicados");
+    return;
   }
 
   res.send(userTweets);
